@@ -1,0 +1,118 @@
+program APO000;
+// 19 de Mayo del 2004
+uses
+  Forms,
+  Windows,
+  MsgDlgs,
+  APO304 in 'APO304.pas' {FReclamos},
+  APO303 in 'APO303.pas' {FDevolucionAportes},
+  APO402 in 'APO402.pas' {FContabilizacion},
+  APO401 in 'APO401.pas' {FActualizaCtaInd},
+  APO515 in 'APO515.pas' {FRepXCtaInd},
+  APO505 in 'APO505.pas' {FRepDevAportes},
+  APO507 in 'APO507.pas' {FRepUnidProcUSES},
+  APO510 in 'APO510.pas' {FRepControlRecaudacion},
+  APO502 in 'APO502.pas' {FRepApoNoDesc},
+  APO506 in 'APO506.pas' {FRepEstadoCtaAportes},
+  APO501 in 'APO501.pas' {FRepCaptacionAportes},
+  APO306 in 'APO306.pas' {FIngresoLote},
+  APODM in 'APODM.pas' {DM1: TDataModule},
+  APO403 in 'APO403.pas' {FProvision},
+  APO702 in 'APO702.pas' {FToolProvision},
+  APO705 in 'APO705.pas' {FToolAportes},
+  APO706 in 'APO706.pas' {FToolCuotas},
+  APO202 in 'APO202.pas' {FGeneraCtaInd},
+  APO511 in 'APO511.pas' {FMuestraDatos},
+  APO302 in 'APO302.pas' {FListaAutDisk},
+  APO001 in 'APO001.pas' {FPrincipal},
+  APO209 in 'APO209.pas' {FDCtaINd},
+  APO707 in 'APO707.pas' {FSeleccio},
+  APO704 in 'APO704.pas' {FToolApo},
+  APO708 in 'APO708.pas' {FToolCamOpe},
+  APO710 in 'APO710.pas' {FToolCtaInd},
+  APO711 in 'APO711.pas' {FToolCaptaAporte},
+  APO307 in 'APO307.pas' {FFusion},
+  APO404 in 'APO404.pas' {FDatosContabilizacion},
+  APO712 in 'APO712.pas' {FPToolCtaInd},
+  APO713 in 'APO713.pas' {FToolDev},
+  APO714 in 'APO714.pas' {FToolRepDev},
+  APO715 in 'APO715.pas' {FAsoCtaInd},
+  APO213 in 'APO213.pas' {FInconsistencias},
+  APO716 in 'APO716.pas' {FToolCtaIndividual},
+  APO717 in 'APO717.pas' {FToolAsoCta},
+  APO718 in 'APO718.pas' {FToolIngLote},
+  APO512 in 'APO512.pas' {FDetOper},
+  APO719 in 'APO719.pas' {FToolBusq},
+  APO308 in 'APO308.pas' {FTOficio},
+  APO720 in 'APO720.pas' {FToolOficio},
+  APO514 in 'APO514.pas' {FRepResCobEfec},
+  APOD08 in 'APOD08.pas' {FRangoFechas},
+  APOD07 in 'APOD07.pas' {FConRes},
+  APOD02 in 'APOD02.pas' {FRecApoxDpto},
+  APOD03 in 'APOD03.pas' {FAporxDpto},
+  APOD04 in 'APOD04.pas' {frmNumApor},
+  APOD05 in 'APOD05.pas' {FrmRecApo},
+  APOD06 in 'APOD06.pas' {FSinRes},
+  APOD01 in 'APOD01.pas' {FDifApoVig2},
+  APOD09 in 'APOD09.pas' {FUnificacion},
+  CRE225 in 'CRE225.pas' {FDSocioEco},
+  CRE206 in 'CRE206.pas' {FDLab},
+  CRE207 in 'CRE207.pas' {FDFirmaHuella},
+  CRE209 in 'CRE209.pas' {FDSituaciones},
+  CRE222 in 'CRE222.pas' {FResoluciones},
+  CRE223 in 'CRE223.pas' {FDFam},
+  CRE224 in 'CRE224.pas' {FDCtasBcos},
+  CRE201 in 'CRE201.pas' {FAsociados},
+  CRE702 in 'cre702.pas' {FToolAso},
+  APO503 in 'APO503.pas' {FRepX},
+  APOD10 in 'APOD10.pas' {FOficioDet},
+  APOD11 in 'APOd11.pas' {FControlReclamos},
+  APOD12 in 'APOD12.pas' {FCambioUPago},
+  APO309 in 'APO309.pas' {FRepDevApo},
+  APO310 in 'APO310.pas' {FRepEstRecaudacion},
+  APO406 in 'APO406.pas' {FContaIncons},
+  APO405 in 'APO405.pas' {FContabilizacionF},
+  APO800 in 'APO800.pas' {FRepAnulApo},
+  APO801 in 'APO801.pas' {FRepAnuUsu},
+  APO517 in 'APO517.pas' {FDifApo},
+  APO520 in 'APO520.pas' {FCobBen},
+  APO518 in 'APO518.pas' {FAponoPag},
+  APO311 in 'APO311.pas' {Festcueapo},
+  APO312 in 'APO312.pas' {Fpronapo},
+  APO313 in 'APO313.pas' {Fgesapomod},
+  APO314 in 'APO314.pas' {FBusAso},
+  APO315 in 'APO315.pas' {Fgesnoapolot},
+  APO316 in 'APO316.pas' {FEstapoxforpag},
+  APO318 in 'APO318.pas' {Faporeg},
+  COB954 in 'COB954.pas' {fRepApoDepBanc},
+  APO319 in 'APO319.pas' {Fcobefeapo},
+  APO320 in 'APO320.pas' {fcuerecapo},
+  APO321 in 'APO321.pas' {Fdescuerec},
+  APO322 in 'APO322.pas' {Fpagosobservados},
+  APO323 in 'APO323.pas' {Festdes},
+  APO324 in 'APO324.pas' {Fenvinfbcocreapo},
+  APO521 in 'APO521.pas' {fincdescuerec},
+  APO301B in 'APO301B.pas' {fIncPla},
+  APOD13 in 'APOD13.pas' {fAporDupli},
+  APO330 in 'APO330.pas' {FRptAportes},
+  APO301 in 'APO301.pas' {FCaptaAportes},
+  APO020 in 'APO020.pas' {FCtrlAcceso},
+  APO022 in 'APO022.pas' {FCPassw};
+
+{$R *.RES}
+
+var
+  HMutex: THandle;
+begin
+  HMutex := CreateMutex (nil, False, 'OneCopyMutexAPO');
+  if WaitForSingleObject (HMutex, 0) <> wait_TimeOut then
+   begin
+    Application.Initialize;
+    Application.Title := 'Aportes  ';
+  Application.CreateForm(TDM1, DM1);
+  Application.Run;
+   end
+ else
+  ErrorMsg('Modulo de Aportes', 'Ya se Encuentra en ejecucin el Modulo');
+end.
+

@@ -1,0 +1,540 @@
+object FContaIncons: TFContaIncons
+  Left = 309
+  Top = 189
+  Width = 681
+  Height = 446
+  Caption = 'Inconsistencias Contables'
+  Color = 13165023
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'MS Sans Serif'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poScreenCenter
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Panel1: TPanel
+    Left = 3
+    Top = 7
+    Width = 667
+    Height = 403
+    Caption = 'Panel1'
+    Color = 10207162
+    TabOrder = 0
+    object dbgResultado: TwwDBGrid
+      Left = 7
+      Top = 15
+      Width = 653
+      Height = 344
+      DisableThemesInTitle = False
+      Selected.Strings = (
+        'TABLA'#9'17'#9'Tabla'#9'F'
+        'ASOID'#9'11'#9'C'#243'digo~Asociado'#9'F'
+        'ASOAPENOM'#9'35'#9'Nombre'#9'F'
+        'TRANSFOPE'#9'11'#9'Fecha'#9'F'
+        'UPROID'#9'6'#9'U.~Proceso'#9'F'
+        'UPAGOID'#9'5'#9'U.~Pago'#9'F'
+        'USEID'#9'4'#9'Use'#9'F'
+        'TRANSMTO'#9'7'#9'Monto'#9'F')
+      IniAttributes.Delimiter = ';;'
+      TitleColor = 10207162
+      FixedCols = 0
+      ShowHorzScrollBar = True
+      DataSource = DM1.dsQry
+      KeyOptions = []
+      Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgWordWrap]
+      ReadOnly = True
+      TabOrder = 0
+      TitleAlignment = taCenter
+      TitleFont.Charset = DEFAULT_CHARSET
+      TitleFont.Color = clWindowText
+      TitleFont.Height = -11
+      TitleFont.Name = 'MS Sans Serif'
+      TitleFont.Style = []
+      TitleLines = 2
+      TitleButtons = False
+    end
+    object BitBtn1: TBitBtn
+      Left = 568
+      Top = 368
+      Width = 75
+      Height = 25
+      Caption = 'Close'
+      TabOrder = 1
+      OnClick = BitBtn1Click
+    end
+    object bbtnVerifica: TBitBtn
+      Left = 24
+      Top = 370
+      Width = 75
+      Height = 25
+      Caption = 'Imprimir'
+      TabOrder = 2
+      OnClick = bbtnVerificaClick
+    end
+  end
+  object ppdb1: TppDBPipeline
+    UserName = 'dbInc'
+    Left = 182
+    Top = 295
+  end
+  object ppr1: TppReport
+    AutoStop = False
+    DataPipeline = ppdb1
+    PrinterSetup.BinName = 'Default'
+    PrinterSetup.DocumentName = 'Report'
+    PrinterSetup.PaperName = 'A4'
+    PrinterSetup.PrinterName = 'Default'
+    PrinterSetup.mmMarginBottom = 20000
+    PrinterSetup.mmMarginLeft = 20000
+    PrinterSetup.mmMarginRight = 20000
+    PrinterSetup.mmMarginTop = 20000
+    PrinterSetup.mmPaperHeight = 297000
+    PrinterSetup.mmPaperWidth = 210000
+    PrinterSetup.PaperSize = 9
+    Template.FileName = 'C:\SolExes\ApoVerifica.rtm'
+    Units = utMillimeters
+    DeviceType = 'Screen'
+    OutlineSettings.CreateNode = True
+    OutlineSettings.CreatePageNodes = True
+    OutlineSettings.Enabled = True
+    OutlineSettings.Visible = True
+    TextSearchSettings.DefaultString = '<FindText>'
+    TextSearchSettings.Enabled = True
+    Left = 262
+    Top = 295
+    Version = '7.02'
+    mmColumnWidth = 0
+    DataPipelineName = 'ppdb1'
+    object ppHeaderBand1: TppHeaderBand
+      mmBottomOffset = 0
+      mmHeight = 24342
+      mmPrintPosition = 0
+      object ppLabel1: TppLabel
+        UserName = 'Label1'
+        Caption = 'Inconsistencias de Aportes'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBlack
+        Font.Name = 'Arial'
+        Font.Size = 12
+        Font.Style = [fsBold]
+        TextAlignment = taCentered
+        Transparent = True
+        mmHeight = 4995
+        mmLeft = 57150
+        mmTop = 1058
+        mmWidth = 55076
+        BandType = 0
+      end
+      object ppLabel2: TppLabel
+        UserName = 'Label2'
+        Caption = 'C'#243'digo'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBlack
+        Font.Name = 'Arial'
+        Font.Size = 10
+        Font.Style = []
+        Transparent = True
+        mmHeight = 3969
+        mmLeft = 4763
+        mmTop = 16933
+        mmWidth = 11113
+        BandType = 0
+      end
+      object ppLabel3: TppLabel
+        UserName = 'Label3'
+        Caption = 'Nombres y Apellidos'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBlack
+        Font.Name = 'Arial'
+        Font.Size = 10
+        Font.Style = []
+        Transparent = True
+        mmHeight = 4022
+        mmLeft = 28840
+        mmTop = 16933
+        mmWidth = 32131
+        BandType = 0
+      end
+      object ppLine1: TppLine
+        UserName = 'Line1'
+        Weight = 0.750000000000000000
+        mmHeight = 1323
+        mmLeft = 265
+        mmTop = 14817
+        mmWidth = 169863
+        BandType = 0
+      end
+      object ppLine2: TppLine
+        UserName = 'Line2'
+        Weight = 0.750000000000000000
+        mmHeight = 1323
+        mmLeft = 265
+        mmTop = 22754
+        mmWidth = 169863
+        BandType = 0
+      end
+      object ppLabel5: TppLabel
+        UserName = 'Label5'
+        Caption = 'Derrama Magisterial'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBlack
+        Font.Name = 'Arial'
+        Font.Size = 10
+        Font.Style = []
+        Transparent = True
+        mmHeight = 3969
+        mmLeft = 1852
+        mmTop = 1058
+        mmWidth = 32015
+        BandType = 0
+      end
+      object ppSystemVariable1: TppSystemVariable
+        UserName = 'SystemVariable1'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBlack
+        Font.Name = 'Arial'
+        Font.Size = 10
+        Font.Style = []
+        Transparent = True
+        mmHeight = 3969
+        mmLeft = 150548
+        mmTop = 1058
+        mmWidth = 17463
+        BandType = 0
+      end
+      object ppLabel6: TppLabel
+        UserName = 'Label6'
+        Caption = 'Use'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBlack
+        Font.Name = 'Arial'
+        Font.Size = 10
+        Font.Style = []
+        TextAlignment = taRightJustified
+        Transparent = True
+        mmHeight = 4022
+        mmLeft = 147638
+        mmTop = 16933
+        mmWidth = 6265
+        BandType = 0
+      end
+      object ppLabel7: TppLabel
+        UserName = 'Label7'
+        Caption = 'U.Pro'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBlack
+        Font.Name = 'Arial'
+        Font.Size = 10
+        Font.Style = []
+        TextAlignment = taRightJustified
+        Transparent = True
+        mmHeight = 4022
+        mmLeft = 120915
+        mmTop = 16933
+        mmWidth = 8975
+        BandType = 0
+      end
+      object ppLabel8: TppLabel
+        UserName = 'Label8'
+        Caption = 'U.Pago'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBlack
+        Font.Name = 'Arial'
+        Font.Size = 10
+        Font.Style = []
+        TextAlignment = taRightJustified
+        Transparent = True
+        mmHeight = 4022
+        mmLeft = 132821
+        mmTop = 16933
+        mmWidth = 11377
+        BandType = 0
+      end
+      object ppLabel9: TppLabel
+        UserName = 'Label9'
+        Caption = 'Monto'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBlack
+        Font.Name = 'Arial'
+        Font.Size = 10
+        Font.Style = []
+        TextAlignment = taRightJustified
+        Transparent = True
+        mmHeight = 4022
+        mmLeft = 159279
+        mmTop = 16933
+        mmWidth = 9737
+        BandType = 0
+      end
+      object ppSystemVariable2: TppSystemVariable
+        UserName = 'SystemVariable2'
+        VarType = vtPageNoDesc
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBlack
+        Font.Name = 'Arial'
+        Font.Size = 10
+        Font.Style = []
+        TextAlignment = taRightJustified
+        Transparent = True
+        mmHeight = 3969
+        mmLeft = 150548
+        mmTop = 5556
+        mmWidth = 13758
+        BandType = 0
+      end
+      object ppLabel4: TppLabel
+        UserName = 'Label4'
+        Caption = 'Fecha'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBlack
+        Font.Name = 'Arial'
+        Font.Size = 10
+        Font.Style = []
+        Transparent = True
+        mmHeight = 4022
+        mmLeft = 104775
+        mmTop = 16933
+        mmWidth = 9779
+        BandType = 0
+      end
+      object ppDBText8: TppDBText
+        UserName = 'DBText8'
+        AutoSize = True
+        DataField = 'TABLA'
+        DataPipeline = ppdb1
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBlack
+        Font.Name = 'Arial'
+        Font.Size = 8
+        Font.Style = []
+        Transparent = True
+        DataPipelineName = 'ppdb1'
+        mmHeight = 3260
+        mmLeft = 12171
+        mmTop = 10319
+        mmWidth = 22352
+        BandType = 0
+      end
+      object ppLabel11: TppLabel
+        UserName = 'Label11'
+        Caption = 'Tabla:'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBlack
+        Font.Name = 'Arial'
+        Font.Size = 8
+        Font.Style = []
+        Transparent = True
+        mmHeight = 3260
+        mmLeft = 1852
+        mmTop = 10319
+        mmWidth = 7874
+        BandType = 0
+      end
+    end
+    object ppDetailBand1: TppDetailBand
+      mmBottomOffset = 0
+      mmHeight = 8467
+      mmPrintPosition = 0
+      object ppDBText1: TppDBText
+        UserName = 'DBText1'
+        DataField = 'ASOAPENOM'
+        DataPipeline = ppdb1
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBlack
+        Font.Name = 'Arial'
+        Font.Size = 9
+        Font.Style = []
+        Transparent = True
+        DataPipelineName = 'ppdb1'
+        mmHeight = 3598
+        mmLeft = 23548
+        mmTop = 2381
+        mmWidth = 74877
+        BandType = 4
+      end
+      object ppDBText2: TppDBText
+        UserName = 'DBText2'
+        AutoSize = True
+        DataField = 'ASOID'
+        DataPipeline = ppdb1
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBlack
+        Font.Name = 'Arial'
+        Font.Size = 9
+        Font.Style = []
+        Transparent = True
+        DataPipelineName = 'ppdb1'
+        mmHeight = 3598
+        mmLeft = 1058
+        mmTop = 2381
+        mmWidth = 17780
+        BandType = 4
+      end
+      object ppDBText3: TppDBText
+        UserName = 'DBText3'
+        AutoSize = True
+        DataField = 'USEID'
+        DataPipeline = ppdb1
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBlack
+        Font.Name = 'Arial'
+        Font.Size = 9
+        Font.Style = []
+        Transparent = True
+        DataPipelineName = 'ppdb1'
+        mmHeight = 3598
+        mmLeft = 148167
+        mmTop = 2381
+        mmWidth = 4233
+        BandType = 4
+      end
+      object ppDBText4: TppDBText
+        UserName = 'DBText4'
+        AutoSize = True
+        DataField = 'UPROID'
+        DataPipeline = ppdb1
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBlack
+        Font.Name = 'Arial'
+        Font.Size = 9
+        Font.Style = []
+        Transparent = True
+        DataPipelineName = 'ppdb1'
+        mmHeight = 3598
+        mmLeft = 121709
+        mmTop = 2381
+        mmWidth = 6858
+        BandType = 4
+      end
+      object ppDBText5: TppDBText
+        UserName = 'DBText5'
+        AutoSize = True
+        DataField = 'UPAGOID'
+        DataPipeline = ppdb1
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBlack
+        Font.Name = 'Arial'
+        Font.Size = 9
+        Font.Style = []
+        Transparent = True
+        DataPipelineName = 'ppdb1'
+        mmHeight = 3979
+        mmLeft = 134673
+        mmTop = 2381
+        mmWidth = 8213
+        BandType = 4
+      end
+      object ppDBText6: TppDBText
+        UserName = 'DBText6'
+        DataField = 'TRANSMTO'
+        DataPipeline = ppdb1
+        DisplayFormat = '#,0.00;-#,0.00'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBlack
+        Font.Name = 'Arial'
+        Font.Size = 9
+        Font.Style = []
+        TextAlignment = taRightJustified
+        Transparent = True
+        DataPipelineName = 'ppdb1'
+        mmHeight = 3598
+        mmLeft = 156634
+        mmTop = 2381
+        mmWidth = 12965
+        BandType = 4
+      end
+      object ppDBText7: TppDBText
+        UserName = 'DBText7'
+        AutoSize = True
+        DataField = 'TRANSFOPE'
+        DataPipeline = ppdb1
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBlack
+        Font.Name = 'Arial'
+        Font.Size = 9
+        Font.Style = []
+        Transparent = True
+        DataPipelineName = 'ppdb1'
+        mmHeight = 3598
+        mmLeft = 102129
+        mmTop = 2381
+        mmWidth = 16002
+        BandType = 4
+      end
+    end
+    object ppFooterBand1: TppFooterBand
+      mmBottomOffset = 0
+      mmHeight = 0
+      mmPrintPosition = 0
+    end
+    object ppSummaryBand1: TppSummaryBand
+      mmBottomOffset = 0
+      mmHeight = 9790
+      mmPrintPosition = 0
+      object ppLine3: TppLine
+        UserName = 'Line3'
+        Weight = 0.750000000000000000
+        mmHeight = 1323
+        mmLeft = 265
+        mmTop = 1323
+        mmWidth = 169863
+        BandType = 7
+      end
+      object ppDBCalc1: TppDBCalc
+        UserName = 'DBCalc1'
+        DataPipeline = ppdb1
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBlack
+        Font.Name = 'Arial'
+        Font.Size = 10
+        Font.Style = []
+        Transparent = True
+        DBCalcType = dcCount
+        DataPipelineName = 'ppdb1'
+        mmHeight = 3969
+        mmLeft = 24606
+        mmTop = 3704
+        mmWidth = 17198
+        BandType = 7
+      end
+      object ppLabel10: TppLabel
+        UserName = 'Label10'
+        Caption = 'Registros'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBlack
+        Font.Name = 'Arial'
+        Font.Size = 10
+        Font.Style = []
+        Transparent = True
+        mmHeight = 4022
+        mmLeft = 7408
+        mmTop = 3704
+        mmWidth = 14859
+        BandType = 7
+      end
+    end
+    object ppParameterList1: TppParameterList
+    end
+  end
+  object ppd1: TppDesigner
+    Caption = 'ReportBuilder'
+    DataSettings.SessionType = 'BDESession'
+    DataSettings.AllowEditSQL = False
+    DataSettings.CollationType = ctASCII
+    DataSettings.DatabaseType = dtParadox
+    DataSettings.IsCaseSensitive = True
+    DataSettings.SQLType = sqBDELocal
+    Position = poScreenCenter
+    Report = ppr1
+    IniStorageType = 'IniFile'
+    IniStorageName = '($WINSYS)\RBuilder.ini'
+    WindowHeight = 400
+    WindowLeft = 100
+    WindowTop = 50
+    WindowWidth = 600
+    Left = 222
+    Top = 295
+  end
+end
