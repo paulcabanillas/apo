@@ -1,16 +1,17 @@
 unit APO001;
 
-// Inicio Uso Estándares: 01/08/2011
+// Inicio Uso Estï¿½ndares: 01/08/2011
 // Unidad               : APO001
 // Formulario           : Fprincipal
-// Fecha de Creación    : 15/12/2003
+// Fecha de Creaciï¿½n    : 15/12/2003
 // Autor                : Area de desarrollo de sistemas.
 // Objetivo             : Menu principal del modulo de Aportes
 // Actualizaciones      :
 // HPC_201501_APO       : 06/01/2015 - Cambio de DCOM a Socket
-// HPC_201801_APO       : : Control de Acceso al Modulo; Al ingresar a los módulos de Front;
-//                        implementar un control que no permita acceder al módulo sino está inscrito en el grupo asignado al módulo
-// APO_202102_HPC       : Cambio de versión:
+// HPC_201801_APO       : : Control de Acceso al Modulo; Al ingresar a los mï¿½dulos de Front;
+//                        implementar un control que no permita acceder al mï¿½dulo sino estï¿½ inscrito en el grupo asignado al mï¿½dulo
+// APO_202102_HPC       : Cambio de versiï¿½n:
+// PCC Test GitHub - 08.08.2025
 
 interface
 
@@ -271,7 +272,7 @@ uses APO304, APO303, APO402, APO301, APO401, APO502, APO503, APO501,
 
 procedure TFPrincipal.OnNoDelete(Sender: TObject; MantFields: TFields);
 begin
-   Errormsg('Módulo de Aportes', ' No se Puede Eliminar este Registro ');
+   Errormsg('Mï¿½dulo de Aportes', ' No se Puede Eliminar este Registro ');
 end;
 
 procedure TFPrincipal.bbtnTachoDragOver(Sender, Source: TObject; X, Y: Integer; State: TDragState; var Accept: Boolean);
@@ -1533,7 +1534,7 @@ begin
     Mtx.ClientDataSet   := DM1.cdsQry;
     mtx.OnCreateMant    := PegaPanelToolPrv;
     mtx.UsuarioSQL.ADD(sSQL) ;
-   	Mtx.Titulo 				  := 'Proyección de Intereses y Bonus';
+   	Mtx.Titulo 				  := 'Proyecciï¿½n de Intereses y Bonus';
     Mtx.SectionName		  := 'RepProvInt';
     Mtx.FileNameIni		  := '\SolAportes.ini';
     Mtx.OnInsert 			  := Nil;
@@ -1651,7 +1652,7 @@ end;
 
 procedure TFPrincipal.FormActivate(Sender: TObject);
 //Inicio HPC_201801_APO
-//Control de Acceso al Modulo; Al ingresar a los módulos de Front; implementar un control que no permita acceder al módulo sino está inscrito en el grupo asignado al módulo
+//Control de Acceso al Modulo; Al ingresar a los mï¿½dulos de Front; implementar un control que no permita acceder al mï¿½dulo sino estï¿½ inscrito en el grupo asignado al mï¿½dulo
 VAR XSQL2,xRuta:STRING;
 begin
   //BloquearMenuPrincipal();
@@ -1671,7 +1672,7 @@ begin
    End;
 
    sSQL := 'USERID='''+DM1.wUsuario+'''';
-   Caption:='Módulo de Aportes - Usuario: '+ DM1.DisplayDescrip('prvTGE','TGE006','USERNOM',sSQL,'USERNOM');
+   Caption:='Mï¿½dulo de Aportes - Usuario: '+ DM1.DisplayDescrip('prvTGE','TGE006','USERNOM',sSQL,'USERNOM');
 
 
    DM1.AccesosUsuarios( DM1.wModulo, DM1.wUsuario, '1','' );
@@ -1818,7 +1819,7 @@ begin
     Mtx.Filter          := '';
     Mtx.DComC           := DM1.DCOM1;
     Mtx.Module          := DM1.wModulo;
-    Mtx.Titulo 		:= 'Cambio de Operación';
+    Mtx.Titulo 		:= 'Cambio de Operaciï¿½n';
     Mtx.OnInsert 	:= nil;
     Mtx.OnEdit 		:= nil;
     Mtx.OnCreateMant    := PegaPanelToolCamOpe;
@@ -2212,7 +2213,7 @@ begin
     Result := True
    Else
     begin
-     ShowMessage( 'Para poder continuar, es necesario que actualice la Versión');
+     ShowMessage( 'Para poder continuar, es necesario que actualice la Versiï¿½n');
      DM1.DCOM1.Connected := False;
      Application.Terminate;
     end;
@@ -2254,14 +2255,14 @@ begin
     Mtx.ControlGridDisp := cgdPrincipal;
     Mtx.ClientDataSet   := DM1.cdsAso;
     Mtx.TableName       := 'APO306';
-    Mtx.Titulo 	        := 'Redistribución de Unidades de Proceso';
+    Mtx.Titulo 	        := 'Redistribuciï¿½n de Unidades de Proceso';
 //WMC 666    Mtx.OnCreateMant    := ToolFusionCreate;
     Mtx.OnInsert        := OnInsertFusion;
     Mtx.OnEdit 	        := OnEditFusion;
     Mtx.OnDelete        := OnDeleteFusion;
     Mtx.OnShow 	        := Nil;
     Mtx.Filter          := 'FOPCION=''R''';
-    Mtx.SectionName     := 'Redistribución de Unidades de Proceso';
+    Mtx.SectionName     := 'Redistribuciï¿½n de Unidades de Proceso';
     Mtx.FileNameIni     := '\SolAportes.ini';
     Mtx.NoVisible.Clear;
     //Mtx.Colors.Add('ASOID;clTeal;clWhite;;;APOFDEV%=%S%;');
@@ -2338,7 +2339,7 @@ begin
      ErrorMsg(Caption, 'Esta Documento de Fusion ya a Sido Aceptada, No es Posible Eliminarla');
      Exit;
     end;
-   If Question('Confirmar', 'Esta Seguro de Eliminar La Fusión '+ #13+#13+
+   If Question('Confirmar', 'Esta Seguro de Eliminar La Fusiï¿½n '+ #13+#13+
                                                     DM1.cdsAso.FieldByName('NFUSION').AsString  + '  -  '+ #13+
                                                     #13 +' Desea Continuar ') Then
     begin
@@ -2826,7 +2827,7 @@ end;
 
 procedure TFPrincipal.SpeedButton6Click(Sender: TObject);
 begin
-// por años
+// por aï¿½os
   SacaMenu(Sender);
   Try
     fRepApoDepBanc := TfRepApoDepBanc.Create(Self);
@@ -2896,9 +2897,9 @@ begin
          MessageDlg('SU PASSWORD HA CADUCADO, DEBE CAMBIARLA AHORA', mtCustom, [mbOk], 0)
       else
          if xdiasfaltantes=1 then
-            MessageDlg('*** FALTA 1 DíA PARA EL VENCIMIENTO DE SU PASSWORD. ***'#13'                            SE SUGIERE CAMBIARLA AHORA', mtCustom, [mbOk], 0)
+            MessageDlg('*** FALTA 1 Dï¿½A PARA EL VENCIMIENTO DE SU PASSWORD. ***'#13'                            SE SUGIERE CAMBIARLA AHORA', mtCustom, [mbOk], 0)
          else
-            MessageDlg('*** FALTAN '+IntToStr(xdiasfaltantes)+' DÍAS PARA EL VENCIMIENTO DE SU PASSWORD. ***'#13'                            SE SUGIERE CAMBIARLA AHORA', mtCustom, [mbOk], 0);
+            MessageDlg('*** FALTAN '+IntToStr(xdiasfaltantes)+' Dï¿½AS PARA EL VENCIMIENTO DE SU PASSWORD. ***'#13'                            SE SUGIERE CAMBIARLA AHORA', mtCustom, [mbOk], 0);
       DM1.cdsUser.Close;
       DM1.cdsUser.DataRequest('SELECT * FROM TGE006 WHERE USERID='''+DM1.wUsuario+'''');
       DM1.cdsUser.Open;
