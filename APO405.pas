@@ -190,11 +190,11 @@ type
     procedure BitBtn4Click(Sender: TObject);
     procedure BitBtn5Click(Sender: TObject);
     procedure BitBtn6Click(Sender: TObject);
-    procedure BitBtn7Click(Sender: TObject);
     procedure BitBtn8Click(Sender: TObject);
     procedure BitBtn9Click(Sender: TObject);
 //Inicio HPC_201601_APO --SE ADICIONA UN BOTON PARA EXPORTAR A EXCEL
     procedure BitBtn10Click(Sender: TObject);
+    procedure BitBtn7Click(Sender: TObject);
 
     //Final HPC_201601_APO
 //    procedure dblcNotInList(Sender: TObject);
@@ -237,7 +237,7 @@ var
 begin
    cLink := '';
    cLink := '';
-   xLink :='';
+   xLink := '';
    xFecha:=DateTimeTostr(Date);
    dbdtpFInicio.Date:=Date;
    dbdtpFFin.Date:=Date;
@@ -779,14 +779,18 @@ begin
       Exit;
    end;
    pgAvance.Position:=pgAvance.Position+1;
-
-   xSQL:='DROP TABLE db2admin.APORTES'+speAno.Text+DM1.StrZero( speMes.Text,2 );
+//Inicio APO_202501_DAF
+   // xSQL:='DROP TABLE DB2ADMIN.APORTES'+speAno.Text+DM1.StrZero( speMes.Text,2 );
+      xSQL:='TRUNCATE TABLE DB2ADMIN.APORTES_CNT ';
+//Final APO_202501_DAF
    try
       DM1.DCOM1.AppServer.EjecutaSQL(xSQL);
    except
    end;
-
-   xSQL:='CREATE TABLE DB2ADMIN.APORTES'+speAno.Text+DM1.StrZero( speMes.Text,2 )+' AS '
+//Inicio APO_202501_DAF
+        xSQL:='INSERT INTO DB2ADMIN.APORTES_CNT '
+ //     xSQL:='CREATE TABLE DB2ADMIN.APORTES'+speAno.Text+DM1.StrZero( speMes.Text,2 )+' AS '
+//Final APO_202501_DAF
         +'SELECT * FROM DB2ADMIN.APO301_DESCARGO '
         +'WHERE FREG>='''+DateToStr(dbdtpFInicio.Date)+''' '
         +  'and FREG<='''+DateToStr(dbdtpFFin.Date   )+''' '
@@ -903,7 +907,7 @@ begin
       Exit;
    end;
 
-   // vhndema Actualiza el Centro de Costo de las Comisiones tdiarid=28,50
+   // vhndema Actualiza el Centro de Costo de las Comisiones
    xSQL:='Update DB2ADMIN.CNT311_OTROS SET CCOSID=''0600'' '
         +'Where CUENTAID=''93909'' AND CCOSID IS NULL';
    try
@@ -996,7 +1000,9 @@ begin
         +  'SUM(CNTDEBEMN) DEBE, SUM(CNTHABEMN) HABER '
         +'FROM CNT300_OTROS'+cLink+' A '
         +'WHERE CIAID=''02'' AND CNTANOMM = '''+speano.Text+dm1.StrZero( spemes.Text,2)+''' '
-        +  'AND TDIARID IN ( ''28'',''33'',''50'' ) AND CNTLOTE=''APO'' '
+//Inicio APO_202501_DAF
+        +  'AND TDIARID IN ( ''28'',''33'',''50'' ) AND CNTLOTE IN (''DAPO'',''APO'',''RCAF'') '
+//Final APO_202501_DAF
         +'GROUP BY CIAID, TDIARID, CNTCOMPROB';
    DM1.cdsQry.Close;
    DM1.cdsQry.DataRequest(xSQL);
@@ -1022,10 +1028,7 @@ begin
 
    pgAvance.Position:=pgAvance.Position+1;
 
-  // xSQL:='INSERT INTO CNT300 '
-  //    +'SELECT * FROM CNT300_OTROS'+cLink+' ';
-
-  XSQL:='INSERT INTO CNT300(CIAID, TDIARID, CNTCOMPROB, CNTANOMM, CNTLOTE, CNTGLOSA, CNTTCAMBIO, CNTFCOMP, CNTESTADO, CNTCUADRE, CNTFAUTOM,'
+    XSQL:='INSERT INTO CNT300(CIAID, TDIARID, CNTCOMPROB, CNTANOMM, CNTLOTE, CNTGLOSA, CNTTCAMBIO, CNTFCOMP, CNTESTADO, CNTCUADRE, CNTFAUTOM,'
        + '                 CNTUSER, CNTFREG, CNTHREG, CNTANO, CNTMM, CNTDD, CNTTRI, CNTSEM, CNTSS, CNTAATRI, CNTAASEM, CNTAASS, TMONID, FLAGVAR,'
        + '                 FCONS, CNTFMEC, TDIARDES, CNTDEBEMN, CNTDEBEME, CNTHABEMN, CNTHABEME, CNTSALDMN, CNTSALDME, CNTTS, DOCMOD, MODULO, FLG_AJUS_X_TCAM) '
        + '        SELECT CIAID, TDIARID, CNTCOMPROB, CNTANOMM, CNTLOTE, CNTGLOSA, CNTTCAMBIO, CNTFCOMP, CNTESTADO, CNTCUADRE, CNTFAUTOM,'
@@ -1042,10 +1045,7 @@ begin
 
    pgAvance.Position:=pgAvance.Position+1;
 
-//   xSQL:='INSERT INTO CNT311 '
-//        +'SELECT * FROM CNT311_OTROS'+cLink+'';
-
-     XSQL:='INSERT INTO CNT311(SELECT CIAID, TDIARID, CNTCOMPROB, CNTANO, CNTANOMM, CNTLOTE, CUENTAID, CLAUXID, AUXID, DOCID, CNTSERIE, CNTNODOC,'
+     XSQL:='INSERT INTO CNT311(CIAID, TDIARID, CNTCOMPROB, CNTANO, CNTANOMM, CNTLOTE, CUENTAID, CLAUXID, AUXID, DOCID, CNTSERIE, CNTNODOC,'
           +'                  CNTGLOSA, CNTDH, CCOSID, CNTTCAMBIO, CNTMTOORI, CNTMTOLOC, CNTMTOEXT, CNTFEMIS, CNTFVCMTO, CNTFCOMP, CNTESTADO,'
           +'                  CNTCUADRE, CNTFAUTOM, CNTUSER, CNTFREG, CNTHREG, CNTMM, CNTDD, CNTTRI, CNTSEM, CNTSS, CNTAATRI, CNTAASEM, CNTAASS,'
           +'                  TMONID, FLAGVAR, FCONS, CNTFMEC, TDIARDES, CTADES, AUXDES, DOCDES, CCOSDES, CNTDEBEMN, CNTDEBEME, CNTHABEMN, CNTHABEME,'
@@ -1068,19 +1068,6 @@ begin
    pgAvance.Position:=pgAvance.Position+1;
 
    // agregar esta rutina para agregar flags contables
-{
-   SELECT freg, cntanomm, tipocont, cntflag FROM APO301
--- update APO301 SET TIPOCONT='APO', CNTFLAG='S', CNTANOMM='200401'
-WHERE FREG>='01/11/2004'
-and FREG<=  '03/11/2004'
-and NOT RCOBID IS NULL
-union all
-SELECT freg, cntanomm, tipocont, cntflag FROM APO301
---update APO301 SET TIPOCONT='APO', CNTFLAG='S', CNTANOMM='200401'
-WHERE FREG>='01/11/2004'
-and FREG<=  '03/11/2004'
-AND FORPAGOID IN ('02','03')
-}
    xSQL:='update APO301 SET TIPOCONT=''APO'', CNTFLAG=''S'', '
         +   'CNTANOMM='''+speano.Text+dm1.StrZero(spemes.Text,2)+''' '
         +'WHERE FREG>='''+DateToStr(dbdtpFInicio.Date)          +''' '
@@ -1118,47 +1105,7 @@ AND FORPAGOID IN ('02','03')
    pgAvance.Max:=0;
 end;
 
-procedure TFContabilizacionF.BitBtn7Click(Sender: TObject);
-begin
-   xSQL:='SELECT TDIARID ORIGEN, CNTCOMPROB COMPROBANTE, CUENTAID CUENTA, '
-        +   'SUM( CNTDEBEMN ) DEBE, SUM( CNTHABEMN ) HABER '
-        +'FROM CNT311 A '
-        +'WHERE CIAID=''02'' AND CNTANOMM = '''+speano.Text+dm1.StrZero( spemes.Text,2)+''' '
-        +  'AND TDIARID IN ( ''28'',''33'',''50'' ) AND CNTLOTE=''APO'' '
-        +'GROUP BY TDIARID, CNTCOMPROB, CUENTAID '
-        +'ORDER BY TDIARID, CNTCOMPROB';
-// Inicio HPC_201602_APO            : SE MODIFICA FILTRO DE REPORTE.
-   xSQL:='SELECT CIAID, TDIARID, CNTCOMPROB, CUENTAID, DOCID, CNTNODOC, '
-        +  'CNTDEBEMN, CNTHABEMN, AUXID, CCOSID, CNTANOMM, CNTSERIE '
-        +'FROM CNT311 A '
-        +'WHERE CIAID=''02'' AND CNTANOMM = '''+speano.Text+dm1.StrZero(spemes.Text,2)+''' '
-        +  'AND TDIARID IN ( ''28'',''33'',''50'' ) AND ( CNTLOTE = ''APO'' '
-        +  'OR (CNTLOTE>=''AP00'' AND CNTLOTE<=''AP99'') OR CNTLOTE = ''APB1'' OR CNTLOTE = ''APB2'' ) '
-        +'ORDER BY TDIARID, CNTCOMPROB';
-// Fin HPC_201602_APO            : SE MODIFICA FILTRO DE REPORTE.
-   DM1.cdsQry.Close;
-   DM1.cdsQry.DataRequest(xSQL);
-   DM1.cdsQry.Open;
 
-  If DM1.cdsQry.RecordCount>0 Then
-  Begin
-   ppdb2.DataSource :=nil;
-   ppr2.DataPipeline:=nil;
-   //ppr2.Template.FileName:='ApoConta.rtm';
-   //ppr2.Template.LoadFromFile;
-   ppdb2.DataSource :=DM1.dsQry;
-   ppr2.DataPipeline:=ppdb2;
-   PPR2.PRINT;
-   //ppd2.ShowModal;
-
-
-   ppdb2.DataSource :=nil;
-   ppr2.DataPipeline:=nil;
-  End
-  else
-    ShowMessage( 'No Existe Información para este reporte' );
-
-end;
 
 procedure TFContabilizacionF.BitBtn8Click(Sender: TObject);
 begin
@@ -1192,12 +1139,15 @@ begin
  {xSQL:='SELECT '''+xMesDes+' DEL '+speAno.Text+''' PERIODO, '
        +  'C.DPTOID, C.DPTODES, A.USEID, B.USENOM,  COUNT(*) CANTIDAD, '
        +  'SUM(NVL(TRANSMTO,0)) TOTAL '
-       +'FROM APORTES'+speAno.Text+DM1.StrZero( speMes.Text,2 )+' A, APO101 B, APO158 C '
+//Inicio APO_202501_DAF
+       +'FROM DB2ADMIN.APORTES'+speAno.Text+DM1.StrZero( speMes.Text,2 )+' A, APO101 B, APO158 C '
+//Final APO_202501_DAF
        +'WHERE A.USEID = B.USEID(+) AND A.UPAGOID = B.UPAGOID(+) AND A.UPROID = B.UPROID(+) '
        +  'AND B.DPTOID = C.DPTOID(+) '
        +'GROUP BY C.DPTOID, C.DPTODES, A.USEID, B.USENOM '
        +'ORDER BY C.DPTODES, B.USENOM ';}
-
+//Inicio APO_202501_DAF
+//OLD
   xSQL:=' WITH APOTIPPAG AS '
   +'(SELECT DPTOID,UPROID,USEID, '
   +' SUM(CASE WHEN FORPAGO=''PLA'' THEN NVL(APORTE,0) END) PLA,'
@@ -1219,7 +1169,7 @@ begin
   +       'A.DPTOID, C.DPTODES,A.UPROID,'
   +       'A.USEID, B.USENOM,COUNT(*) CANTIDAD,'
   +       'SUM(NVL(TRANSMTO,0)) TOTAL '
-  +'FROM   APORTES'+speAno.Text+DM1.StrZero(speMes.Text,2)+' A, APO101'+xLink+' B, APO158'+xLink+' C '
+  +'FROM   DB2ADMIN.APORTES'+speAno.Text+DM1.StrZero(speMes.Text,2)+' A, APO101'+xLink+' B, APO158'+xLink+' C '
   +'WHERE  A.USEID   = B.USEID(+)  '
   +'  AND  A.UPAGOID = B.UPAGOID(+)'
   +'  AND  A.UPROID  = B.UPROID(+) '
@@ -1229,14 +1179,15 @@ begin
   +'APOTIPPAG E '
   +'WHERE D.DPTOID=E.DPTOID AND D.UPROID=E.UPROID AND D.USEID=E.USEID ';
 
-
+//NUEVO
   XSQL:='SELECT D.PERIODO,D.DPTOID,D.DPTODES,D.UPROID,D.USEID,D.USENOM,D.CANTIDAD,NVL(E.PLA,0) PLA,NVL(E.EFE,0) EFE,NVL(E.BAN,0) BAN, NVL(E.PLA,0)+NVL(E.EFE,0)+ NVL(E.BAN,0) TOTAL '      //NVL(D.TOTAL,0) TOTAL '
   +'FROM '
   +'(SELECT '''+xMesDes+' DEL '+speAno.Text+''' PERIODO, '
   +       'A.DPTOID, C.DPTODES,A.UPROID,'
   +       'A.USEID, B.USENOM,COUNT(*) CANTIDAD,'
   +       'SUM(NVL(TRANSMTO,0)) TOTAL '
-  +'FROM   APORTES'+speAno.Text+DM1.StrZero(speMes.Text,2)+' A, APO101'+xLink+' B, APO158'+xLink+' C '
+  +'FROM   DB2ADMIN.APORTES_CNT A, APO101'+xLink+' B, APO158'+xLink+' C '
+//Final APO_202501_DAF
   +'WHERE  A.USEID   = B.USEID(+)  '
   +'  AND  A.UPAGOID = B.UPAGOID(+)'
   +'  AND  A.UPROID  = B.UPROID(+) '
@@ -1251,8 +1202,10 @@ begin
   +'(SELECT DPTOID,UPROID,USEID, '
   +' CASE WHEN FORPAGOABR IN (''REG'',''CEF'',''PLA'') THEN ''PLA'' ELSE FORPAGOABR END FORPAGO ,'
   +' SUM(NVL(TRANSMTO,0))APORTE '
-  +'FROM APO301'+xLink+'  '
-  +'WHERE TRUNC(FREG)>='''+dbdtpFInicio.Text+''' and TRUNC(FREG)<='''+dbdtpFFin.Text+''' AND ( FORPAGOID IN (''02'',''03'') OR RCOBID IS NOT NULL) '
+//Inicio APO_202501_DAF
+  +'FROM DB2ADMIN.APO301'+xLink+'  '
+  +'WHERE FREG>='''+dbdtpFInicio.Text+''' and FREG<='''+dbdtpFFin.Text+''' AND ( FORPAGOID IN (''02'',''03'') OR RCOBID IS NOT NULL) '
+//Final APO_202501_DAF
   +'GROUP BY DPTOID,UPROID,USEID,FORPAGOABR '
   +'ORDER BY DPTOID,UPROID,USEID)'
   +'GROUP BY DPTOID,UPROID,USEID '
@@ -1387,7 +1340,10 @@ xSQL:=' WITH APOTIPPAG AS '
   +       'A.DPTOID, C.DPTODES,A.UPROID,'
   +       'A.USEID, B.USENOM,COUNT(*) CANTIDAD,'
   +       'SUM(NVL(TRANSMTO,0)) TOTAL '
-  +'FROM   db2admin.APORTES'+speAno.Text+DM1.StrZero( speMes.Text,2 )+' A, APO101 B, APO158 C '
+//Inicio APO_202501_DAF
+//+'FROM   DB2ADMIN.APORTES'+speAno.Text+DM1.StrZero( speMes.Text,2 )+' A, APO101 B, APO158 C '
+  +'FROM   DB2ADMIN.APORTES_CNT A, APO101 B, APO158 C '
+//Final APO_202501_DAF
   +'WHERE  A.USEID   = B.USEID(+)  '
   +'  AND  A.UPAGOID = B.UPAGOID(+)'
   +'  AND  A.UPROID  = B.UPROID(+) '
@@ -1418,5 +1374,49 @@ xSQL:=' WITH APOTIPPAG AS '
 end;
 //Final HPC_201601_APO
 
+
+procedure TFContabilizacionF.BitBtn7Click(Sender: TObject);
+begin
+//Inicio APO_202501_DAF
+   xSQL:='SELECT TDIARID ORIGEN, CNTCOMPROB COMPROBANTE, CUENTAID CUENTA, '
+        +   'SUM( CNTDEBEMN ) DEBE, SUM( CNTHABEMN ) HABER '
+        +'FROM CNT311 A '
+        +'WHERE CIAID=''02'' AND CNTANOMM = '''+speano.Text+dm1.StrZero( spemes.Text,2)+''' '
+        +  'AND TDIARID IN ( ''28'',''33'',''50'' ) AND CNTLOTE IN  (''APO'',''RCAF'') '
+        +'GROUP BY TDIARID, CNTCOMPROB, CUENTAID '
+        +'ORDER BY TDIARID, CNTCOMPROB';
+// Inicio HPC_201602_APO            : SE MODIFICA FILTRO DE REPORTE.
+   xSQL:='SELECT CIAID, TDIARID, CNTCOMPROB, CUENTAID, DOCID, CNTNODOC, '
+        +  'CNTDEBEMN, CNTHABEMN, AUXID, CCOSID, CNTANOMM, CNTSERIE '
+        +'FROM CNT311 A '
+        +'WHERE CIAID=''02'' AND CNTANOMM = '''+speano.Text+dm1.StrZero(spemes.Text,2)+''' '
+        +  ' AND TDIARID IN ( ''28'',''33'',''50'' ) AND ( CNTLOTE IN  (''DAPO'',''APO'',''RCAF'') '
+        +  ' OR (CNTLOTE>=''AP00'' AND CNTLOTE<=''AP99'') OR CNTLOTE = ''APB1'' OR CNTLOTE = ''APB2'' ) '
+        +  ' AND  CNTFREG <> ''19/06/2025'' ' //esta fecha no se tomará poque se realizó en forma manual en contabilidad sobre un excel.
+//Final APO_202501_DAF
+        +'ORDER BY TDIARID, CNTCOMPROB';
+// Fin HPC_201602_APO            : SE MODIFICA FILTRO DE REPORTE.
+   DM1.cdsQry.Close;
+   DM1.cdsQry.DataRequest(xSQL);
+   DM1.cdsQry.Open;
+
+  If DM1.cdsQry.RecordCount>0 Then
+  Begin
+   ppdb2.DataSource :=nil;
+   ppr2.DataPipeline:=nil;
+   //ppr2.Template.FileName:='ApoConta.rtm';
+   //ppr2.Template.LoadFromFile;
+   ppdb2.DataSource :=DM1.dsQry;
+   ppr2.DataPipeline:=ppdb2;
+   PPR2.PRINT;
+   //ppd2.ShowModal;
+
+
+   ppdb2.DataSource :=nil;
+   ppr2.DataPipeline:=nil;
+  End
+  else
+    ShowMessage( 'No Existe Información para este reporte' );
+end;
 
 end.
